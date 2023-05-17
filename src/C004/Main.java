@@ -5,6 +5,6 @@ public class Main {
         int colSize = 10;
         int rowSize = 10;
         CellLinkedMatrix matrix = new CellLinkedMatrix(colSize, rowSize);
-
+        // test
     }
 }
