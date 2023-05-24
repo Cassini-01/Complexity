@@ -5,6 +5,7 @@ public class Main {
         int colSize = 5;
         int rowSize = 5;
         CellLinkedMatrix matrix = new CellLinkedMatrix(colSize, rowSize);
-        // test
+
+        matrix.printAllNeighbours();
     }
 }

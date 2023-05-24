@@ -5,6 +5,7 @@ public class CellLinkedMatrix {
     int colSize;
     int rowSize;
     int cellAmount;
+    Cell[] cellList;
 
     public CellLinkedMatrix(int col, int row) {
         // declare corner and borders
@@ -22,10 +23,10 @@ public class CellLinkedMatrix {
         this.rowSize = row;
 
         // calculate number of cells
-        cellAmount = colSize * rowSize;
+        this.cellAmount = colSize * rowSize;
 
         // create cells and add to an array
-        Cell[] cellList = new Cell[cellAmount+1];
+        cellList = new Cell[cellAmount+1];
         for (int i = 1; i <= cellAmount; i++) {
             cellList[i] = new Cell(i);
         }
@@ -38,8 +39,8 @@ public class CellLinkedMatrix {
 
         // identify the north border
         N = new int[col];
-        for (int i = 1; i < col; i++) {
-            N[i] = i;
+        for (int i = 1; i <= col; i++) {
+            N[i-1] = i;
         }
         // remove the corners
         N[0] = -1;
@@ -75,10 +76,10 @@ public class CellLinkedMatrix {
         W[0] = -1;
         W[row-1] = -1;
 
-
-
         // link core cells
-        for (Cell cell : cellList) {
+        for (int i = 1; i < cellAmount; i++) {
+            Cell cell = cellList[i];
+            if (cell.equals(null)) {continue;}
             if (cell.getCellID() == NW || cell.getCellID() == NE ||
             cell.getCellID() == SE || cell.getCellID() == SW) {
                 continue;
@@ -107,6 +108,99 @@ public class CellLinkedMatrix {
 
         }
 
+        // link border cells
+        for (int i = 1; i <= cellAmount; i++) {
+            Cell cell = cellList[i];
+            if (isIn(N, cell)) {
+                // calc E direction
+                cell.setE(cellList[cell.getCellID() + 1]);
+                // calc SE direction
+                cell.setSE(cellList[cell.getCellID() + row + 1]);
+                // calc S direction
+                cell.setS(cellList[cell.getCellID() + row]);
+                // calc SW direction
+                cell.setSW(cellList[cell.getCellID() + row - 1]);
+                // calc W direction
+                cell.setW(cellList[cell.getCellID() - 1]);
+            }
+            if (isIn(E, cell)) {
+                // calc N direction
+                cell.setN(cellList[cell.getCellID() - row]);
+                // calc S direction
+                cell.setS(cellList[cell.getCellID() + row]);
+                // calc SW direction
+                cell.setSW(cellList[cell.getCellID() + row - 1]);
+                // calc W direction
+                cell.setW(cellList[cell.getCellID() - 1]);
+                // calc NW direction
+                cell.setNW(cellList[cell.getCellID() - row - 1]);
+            }
+            if (isIn(S, cell)) {
+                // calc N direction
+                cell.setN(cellList[cell.getCellID() - row]);
+                // calc NE direction
+                cell.setNE(cellList[cell.getCellID() - row + 1]);
+                // calc E direction
+                cell.setE(cellList[cell.getCellID() + 1]);
+                // calc W direction
+                cell.setW(cellList[cell.getCellID() - 1]);
+                // calc NW direction
+                cell.setNW(cellList[cell.getCellID() - row - 1]);
+            }
+            if (isIn(W, cell)) {
+                // calc N direction
+                cell.setN(cellList[cell.getCellID() - row]);
+                // calc NE direction
+                cell.setNE(cellList[cell.getCellID() - row + 1]);
+                // calc E direction
+                cell.setE(cellList[cell.getCellID() + 1]);
+                // calc SE direction
+                cell.setSE(cellList[cell.getCellID() + row + 1]);
+                // calc S direction
+                cell.setS(cellList[cell.getCellID() + row]);
+            }
+            if (cell.getCellID() == NW) {
+                // calc E direction
+                cell.setE(cellList[cell.getCellID() + 1]);
+                // calc SE direction
+                cell.setSE(cellList[cell.getCellID() + row + 1]);
+                // calc S direction
+                cell.setS(cellList[cell.getCellID() + row]);
+            }
+            if (cell.getCellID() == NE) {
+                // calc S direction
+                cell.setS(cellList[cell.getCellID() + row]);
+                // calc SW direction
+                cell.setSW(cellList[cell.getCellID() + row - 1]);
+                // calc W direction
+                cell.setW(cellList[cell.getCellID() - 1]);
+            }
+            if (cell.getCellID() == SE) {
+                // calc N direction
+                cell.setN(cellList[cell.getCellID() - row]);
+                // calc W direction
+                cell.setW(cellList[cell.getCellID() - 1]);
+                // calc NW direction
+                cell.setNW(cellList[cell.getCellID() - row - 1]);
+            }
+            if (cell.getCellID() == SW) {
+                // calc N direction
+                cell.setN(cellList[cell.getCellID() - row]);
+                // calc NE direction
+                cell.setNE(cellList[cell.getCellID() - row + 1]);
+                // calc E direction
+                cell.setE(cellList[cell.getCellID() + 1]);
+            }
+        }
+        for (int i = 1; i < cellList.length; i++) {
+            cellList[i].fillDirectionList();
+        }
+    }
+
+    public void printAllNeighbours() {
+        for (int i = 1; i < cellList.length; i++) {
+            cellList[i].printNeighbours();
+        }
     }
 
     private boolean isIn(int[] cellIDList, Cell cell) {
@@ -118,4 +212,21 @@ public class CellLinkedMatrix {
         return false;
     }
 
+    public Cell[] getCellList() {return cellList;}
+    public Cell getCell(int ID) {
+        for (int i = 1; i < cellAmount; i++) {
+            if (ID == cellList[i].getCellID()) {
+                return cellList[i];
+            }
+        }
+        return null;
+    }
+    public Cell getCell(Cell cell) {
+        for (int i = 1; i < cellAmount; i++) {
+            if (cell.equals(cellList[i])) {
+                return cellList[i];
+            }
+        }
+        return null;
+    }
 }
