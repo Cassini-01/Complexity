@@ -7,10 +7,24 @@ public class Cell {
     private final int cellID;
     private Cell N,NE,E,SE,S,SW,W,NW;
     private Cell[] directionList;
+    private Agent currentAgent;
 
     public Cell(int id) {
         this.cellID = id;
         this.directionList = new Cell[8];
+        this.currentAgent = null;
+    }
+
+    // print currentAgent
+    // if empty print '.'
+    public void printCurrentAgent() {
+        if (Objects.isNull(currentAgent)) {
+            System.out.print('.');
+            System.out.print('\t');
+        } else {
+            System.out.print(currentAgent.getDisplayChar());
+            System.out.print('\t');
+        }
     }
 
     // print cell neighbour details
@@ -40,6 +54,7 @@ public class Cell {
 
     // getters
     public int getCellID() {return cellID;}
+    public Agent getCurrentAgent() {return currentAgent;}
     public Cell getN() {return N;}
     public Cell getNE() {return NE;}
     public Cell getE() {return E;}
@@ -50,6 +65,7 @@ public class Cell {
     public Cell getNW() {return NW;}
 
     // setters
+    public void setCurrentAgent(Agent agent) {this.currentAgent = agent;}
     public void setN(Cell cell) {N = cell;}
     public void setNE(Cell cell) {NE = cell;}
     public void setE(Cell cell) {E = cell;}

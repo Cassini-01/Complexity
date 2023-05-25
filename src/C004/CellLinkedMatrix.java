@@ -191,6 +191,18 @@ public class CellLinkedMatrix {
         }
     }
 
+    public void printMatrix() {
+        int count = 0;
+        for (int i = 1; i < cellList.length; i++) {
+            if (count == colSize){
+                System.out.println();
+                count = 0;
+            }
+            cellList[i].printCurrentAgent();
+            count++;
+        }
+    }
+
     public void printAllNeighbours() {
         for (int i = 1; i < cellList.length; i++) {
             cellList[i].printNeighbours();
