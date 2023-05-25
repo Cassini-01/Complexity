@@ -2,21 +2,13 @@ package C004;
 
 public class CellLinkedMatrix {
 
-    int colSize;
-    int rowSize;
-    int cellAmount;
+    int colSize, rowSize, cellAmount;
     Cell[] cellList;
 
     public CellLinkedMatrix(int col, int row) {
         // declare corner and borders
-        int NW;
-        int NE;
-        int SE;
-        int SW;
-        int[] N;
-        int[] E;
-        int[] S;
-        int[] W;
+        int NW, NE, SE, SW;
+        int[] N, E, S ,W;
 
         // defines size of matrix
         this.colSize = col;
@@ -192,6 +184,8 @@ public class CellLinkedMatrix {
                 cell.setE(cellList[cell.getCellID() + 1]);
             }
         }
+
+        // fill in the direction arrays of each cell
         for (int i = 1; i < cellList.length; i++) {
             cellList[i].fillDirectionList();
         }

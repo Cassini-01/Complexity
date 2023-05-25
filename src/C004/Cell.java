@@ -6,7 +6,7 @@ public class Cell {
 
     private final int cellID;
     private Cell N,NE,E,SE,S,SW,W,NW;
-    public Cell[] directionList;
+    private Cell[] directionList;
 
     public Cell(int id) {
         this.cellID = id;
