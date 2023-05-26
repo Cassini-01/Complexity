@@ -4,6 +4,7 @@ public class CellLinkedMatrix {
 
     int colSize, rowSize, cellAmount;
     Cell[] cellList;
+    private final Cell origin;
 
     public CellLinkedMatrix(int col, int row) {
         // declare corner and borders
@@ -189,6 +190,9 @@ public class CellLinkedMatrix {
         for (int i = 1; i < cellList.length; i++) {
             cellList[i].fillDirectionList();
         }
+
+        // set cell origin to first cell
+        this.origin = cellList[NW];
     }
 
     public void printMatrix() {
@@ -235,4 +239,6 @@ public class CellLinkedMatrix {
         }
         return null;
     }
+
+    public Cell getOrigin() {return this.origin;}
 }
