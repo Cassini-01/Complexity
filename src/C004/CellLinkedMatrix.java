@@ -1,12 +1,19 @@
 package C004;
 
+import java.util.ArrayList;
+
 public class CellLinkedMatrix {
 
-    int colSize, rowSize, cellAmount;
-    Cell[] cellList;
+    private int colSize, rowSize, cellAmount;
+    private Cell[] cellList;
+    private ArrayList<Agent> agentList;
     private final Cell origin;
+    private static int nextAssignableID = 1;
 
     public CellLinkedMatrix(int col, int row) {
+        // set agentList to null
+        this.agentList = new ArrayList<Agent>();
+
         // declare corner and borders
         int NW, NE, SE, SW;
         int[] N, E, S ,W;
@@ -195,6 +202,48 @@ public class CellLinkedMatrix {
         this.origin = cellList[NW];
     }
 
+    public void moveAgent(int id, Direction direction, int steps) {
+        this.getAgent(id).directionHandler(direction, steps);
+    }
+
+    public Cell getOrigin() {return this.origin;}
+
+    public Agent getAgent(int id) {
+        for (Agent agent : agentList) {
+            if (agent.getAgentID() == id) {
+                return agent;
+            }
+        }
+        return null;
+    }
+
+    // generates a new Agent with a unique ID and adds it to list
+    public void generateAgent() {
+        Agent newAgent = new Agent(nextAssignableID);
+        newAgent.setCurrentCell(origin);
+        agentList.add(newAgent);
+        nextAssignableID++;
+    }
+
+    // assumes there can only be one agent
+    public void spawnAgent(int id) {
+        origin.setCurrentAgent(getAgent(id));
+    }
+
+    // removes agents from list using specified id
+    // TODO remove agent from matrix as well as list
+    public void removeAgent(int id) {
+        for (Agent agent : agentList) {
+            if (agent.getAgentID() == id) {
+                agentList.remove(agent);
+            }
+        }
+    }
+
+
+    // ### tools ############################################################################################
+
+
     public void printMatrix() {
         int count = 0;
         for (int i = 1; i < cellList.length; i++) {
@@ -205,12 +254,23 @@ public class CellLinkedMatrix {
             cellList[i].printCurrentAgent();
             count++;
         }
+
+        System.out.println();
+        System.out.println();
     }
 
     public void printAllNeighbours() {
         for (int i = 1; i < cellList.length; i++) {
             cellList[i].printNeighbours();
         }
+    }
+
+    public void printAgentList() {
+        for (Agent agent : agentList) {
+            System.out.println(agent.getAgentID());
+        }
+        System.out.println();
+        System.out.println();
     }
 
     private boolean isIn(int[] cellIDList, Cell cell) {
@@ -222,23 +282,4 @@ public class CellLinkedMatrix {
         return false;
     }
 
-    public Cell[] getCellList() {return cellList;}
-    public Cell getCell(int ID) {
-        for (int i = 1; i < cellAmount; i++) {
-            if (ID == cellList[i].getCellID()) {
-                return cellList[i];
-            }
-        }
-        return null;
-    }
-    public Cell getCell(Cell cell) {
-        for (int i = 1; i < cellAmount; i++) {
-            if (cell.equals(cellList[i])) {
-                return cellList[i];
-            }
-        }
-        return null;
-    }
-
-    public Cell getOrigin() {return this.origin;}
 }

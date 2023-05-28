@@ -66,6 +66,7 @@ public class Cell {
 
     // setters
     public void setCurrentAgent(Agent agent) {this.currentAgent = agent;}
+    public void removeCurrentAgent() {this.currentAgent = null;}
     public void setN(Cell cell) {N = cell;}
     public void setNE(Cell cell) {NE = cell;}
     public void setE(Cell cell) {E = cell;}
