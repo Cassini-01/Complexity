@@ -13,6 +13,10 @@ public class Agent {
         this.moveCount = 0;
     }
 
+    public void agentAction() {
+
+    }
+
     public void coreDirectionHandler(Direction direction) {
         switch(direction) {
             case North:

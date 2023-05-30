@@ -11,8 +11,11 @@ public class CellLinkedMatrix {
     private static int nextAssignableID = 1;
     int NW, NE, SE, SW;
     int[] N, E, S ,W;
+    boolean activated;
 
     public CellLinkedMatrix(int col, int row) {
+        this.activated = false;
+
         // set agentList to null
         this.agentList = new ArrayList<Agent>();
 
@@ -200,11 +203,19 @@ public class CellLinkedMatrix {
         this.origin = cellList[NW];
     }
 
-    public void moveAgent(int id, Direction direction, int steps) {
-        for (int i = 0; i < steps; i++) {
-            //this.getAgent(id);
-            this.getAgent(id).coreDirectionHandler(direction);
+    public void cycleAgents() {
+        while (activated) {
+            for (Agent agent : agentList) {
+                agent.agentAction();
+            }
         }
+    }
+
+    public void switchActivation() {
+        if (this.activated == false)
+            this.activated = true;
+        else
+            this.activated = false;
     }
 
     public Cell getOrigin() {return this.origin;}
