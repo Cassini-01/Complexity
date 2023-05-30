@@ -9,14 +9,12 @@ public class CellLinkedMatrix {
     private ArrayList<Agent> agentList;
     private final Cell origin;
     private static int nextAssignableID = 1;
+    int NW, NE, SE, SW;
+    int[] N, E, S ,W;
 
     public CellLinkedMatrix(int col, int row) {
         // set agentList to null
         this.agentList = new ArrayList<Agent>();
-
-        // declare corner and borders
-        int NW, NE, SE, SW;
-        int[] N, E, S ,W;
 
         // defines size of matrix
         this.colSize = col;
@@ -203,7 +201,10 @@ public class CellLinkedMatrix {
     }
 
     public void moveAgent(int id, Direction direction, int steps) {
-        this.getAgent(id).directionHandler(direction, steps);
+        for (int i = 0; i < steps; i++) {
+            //this.getAgent(id);
+            this.getAgent(id).coreDirectionHandler(direction);
+        }
     }
 
     public Cell getOrigin() {return this.origin;}

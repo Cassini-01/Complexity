@@ -13,41 +13,45 @@ public class Agent {
         this.moveCount = 0;
     }
 
-    public void directionHandler(Direction direction, int steps) {
+    public void coreDirectionHandler(Direction direction) {
         switch(direction) {
             case North:
-                moveHandler(this.currentCell.getN(), steps);
+                coreMoveHandler(this.currentCell.getN());
                 break;
             case NorthEast:
-                moveHandler(this.currentCell.getNE(), steps);
+                coreMoveHandler(this.currentCell.getNE());
                 break;
             case East:
-                moveHandler(this.currentCell.getE(), steps);
+                coreMoveHandler(this.currentCell.getE());
                 break;
             case SouthEast:
-                moveHandler(this.currentCell.getSE(), steps);
+                coreMoveHandler(this.currentCell.getSE());
                 break;
             case South:
-                moveHandler(this.currentCell.getS(), steps);
+                coreMoveHandler(this.currentCell.getS());
                 break;
             case SouthWest:
-                moveHandler(this.currentCell.getSW(), steps);
+                coreMoveHandler(this.currentCell.getSW());
                 break;
             case West:
-                moveHandler(this.currentCell.getW(), steps);
+                coreMoveHandler(this.currentCell.getW());
                 break;
             case NorthWest:
-                moveHandler(this.currentCell.getNW(), steps);
+                coreMoveHandler(this.currentCell.getNW());
                 break;
         }
     }
 
-    private void moveHandler(Cell nextCell, int steps) {
+    private void coreMoveHandler(Cell nextCell) {
         nextCell.setCurrentAgent(this);
         this.currentCell.removeCurrentAgent();
         this.setCurrentCell(nextCell);
-        //directionHandler(direction, nextCell,);
 
+    }
+
+    public void borderDirectionHandler(Direction direction) {
+        // identify the current cell
+        Cell currentCell = this.currentCell;
     }
 
     public Cell getCurrentCell() {return this.currentCell;}

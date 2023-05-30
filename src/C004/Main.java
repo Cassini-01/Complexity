@@ -16,9 +16,7 @@ public class Main {
 
         matrix.printMatrix();
 
-        matrix.moveAgent(1, Direction.SouthEast, 1);
-
-        matrix.moveAgent(1, Direction.SouthEast, 1);
+        matrix.moveAgent(1, Direction.South, 3);
 
         matrix.printMatrix();
 
