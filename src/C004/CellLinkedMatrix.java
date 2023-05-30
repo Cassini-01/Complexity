@@ -9,9 +9,9 @@ public class CellLinkedMatrix {
     private ArrayList<Agent> agentList;
     private final Cell origin;
     private static int nextAssignableID = 1;
-    int NW, NE, SE, SW;
-    int[] N, E, S ,W;
-    boolean activated;
+    private int NW, NE, SE, SW;
+    private int[] N, E, S ,W;
+    private boolean activated;
 
     public CellLinkedMatrix(int col, int row) {
         this.activated = false;
@@ -207,6 +207,7 @@ public class CellLinkedMatrix {
         while (activated) {
             for (Agent agent : agentList) {
                 agent.agentAction();
+                this.printMatrix();
             }
         }
     }

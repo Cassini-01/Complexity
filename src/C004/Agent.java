@@ -4,17 +4,16 @@ public class Agent {
     private final int agentID;
     private char displayChar;
     private Cell currentCell;
-    private static int moveCount;
+    private Direction currentDirection;
 
     public Agent(int id) {
         this.agentID = id;
-        // temp
         this.displayChar = 'x';
-        this.moveCount = 0;
+        this.currentDirection = Direction.SouthEast; // testing, likely be random
     }
 
     public void agentAction() {
-
+        coreDirectionHandler(currentDirection);
     }
 
     public void coreDirectionHandler(Direction direction) {
