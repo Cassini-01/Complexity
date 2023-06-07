@@ -2,8 +2,8 @@ package C004;
 
 public class Main {
     public static void main(String[] args) {
-        int colSize = 100;
-        int rowSize = 100;
+        int colSize = 10;
+        int rowSize = 10;
         CellLinkedMatrix matrix = new CellLinkedMatrix(colSize, rowSize);
 
         matrix.generateAgent();
@@ -13,6 +13,8 @@ public class Main {
         matrix.printMatrix();
 
         matrix.spawnAgent(1);
+
+        matrix.printMatrix();
 
         matrix.switchActivation();
 

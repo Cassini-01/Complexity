@@ -9,8 +9,8 @@ public class CellLinkedMatrix {
     private ArrayList<Agent> agentList;
     private final Cell origin;
     private static int nextAssignableID = 1;
-    private int NW, NE, SE, SW;
-    private int[] N, E, S ,W;
+    int NW, NE, SE, SW;
+    int[] N, E, S ,W;
     private boolean activated;
 
     public CellLinkedMatrix(int col, int row) {
@@ -201,6 +201,7 @@ public class CellLinkedMatrix {
 
         // set cell origin to first cell
         this.origin = cellList[NW];
+
     }
 
     public void cycleAgents() {
@@ -208,6 +209,8 @@ public class CellLinkedMatrix {
             for (Agent agent : agentList) {
                 agent.agentAction();
                 this.printMatrix();
+                wait(1000);
+
             }
         }
     }
@@ -293,6 +296,14 @@ public class CellLinkedMatrix {
             }
         }
         return false;
+    }
+
+    private void wait(int milli) {
+        try {
+            Thread.sleep(milli);
+        } catch (Exception e) {
+
+        }
     }
 
 }

@@ -1,10 +1,14 @@
 package C004;
 
+import java.util.Objects;
+
 public class Agent {
     private final int agentID;
     private char displayChar;
     private Cell currentCell;
     private Direction currentDirection;
+    int NW, NE, SE, SW;
+    int[] N, E, S ,W;
 
     public Agent(int id) {
         this.agentID = id;
@@ -13,34 +17,74 @@ public class Agent {
     }
 
     public void agentAction() {
-        coreDirectionHandler(currentDirection);
+        coreDirectionHandler();
     }
 
-    public void coreDirectionHandler(Direction direction) {
-        switch(direction) {
+    private void coreDirectionHandler() {
+        switch(currentDirection) {
             case North:
-                coreMoveHandler(this.currentCell.getN());
+                if (Objects.isNull(this.currentCell.getN())) {
+                    this.currentDirection = Direction.South;
+                    coreMoveHandler(this.currentCell.getS());
+                } else {
+                    coreMoveHandler(this.currentCell.getN());
+                }
                 break;
             case NorthEast:
-                coreMoveHandler(this.currentCell.getNE());
+                if (Objects.isNull(this.currentCell.getNE())) {
+                    this.currentDirection = Direction.SouthWest;
+                    coreMoveHandler(this.currentCell.getSW());
+                } else {
+                    coreMoveHandler(this.currentCell.getN());
+                }
                 break;
             case East:
-                coreMoveHandler(this.currentCell.getE());
+                if (Objects.isNull(this.currentCell.getE())) {
+                    this.currentDirection = Direction.West;
+                    coreMoveHandler(this.currentCell.getW());
+                } else {
+                    coreMoveHandler(this.currentCell.getE());
+                }
                 break;
             case SouthEast:
-                coreMoveHandler(this.currentCell.getSE());
+                if (Objects.isNull(this.currentCell.getSE())) {
+                    this.currentDirection = Direction.NorthWest;
+                    coreMoveHandler(this.currentCell.getNW());
+                } else {
+                    coreMoveHandler(this.currentCell.getSE());
+                }
                 break;
             case South:
-                coreMoveHandler(this.currentCell.getS());
+                if (Objects.isNull(this.currentCell.getS())) {
+                    this.currentDirection = Direction.North;
+                    coreMoveHandler(this.currentCell.getN());
+                } else {
+                    coreMoveHandler(this.currentCell.getS());
+                }
                 break;
             case SouthWest:
-                coreMoveHandler(this.currentCell.getSW());
+                if (Objects.isNull(this.currentCell.getSW())) {
+                    this.currentDirection = Direction.NorthEast;
+                    coreMoveHandler(this.currentCell.getNE());
+                } else {
+                    coreMoveHandler(this.currentCell.getSW());
+                }
                 break;
             case West:
-                coreMoveHandler(this.currentCell.getW());
+                if (Objects.isNull(this.currentCell.getW())) {
+                    this.currentDirection = Direction.East;
+                    coreMoveHandler(this.currentCell.getE());
+                } else {
+                    coreMoveHandler(this.currentCell.getW());
+                }
                 break;
             case NorthWest:
-                coreMoveHandler(this.currentCell.getNW());
+                if (Objects.isNull(this.currentCell.getNW())) {
+                    this.currentDirection = Direction.SouthEast;
+                    coreMoveHandler(this.currentCell.getSE());
+                } else {
+                    coreMoveHandler(this.currentCell.getNW());
+                }
                 break;
         }
     }
@@ -52,9 +96,13 @@ public class Agent {
 
     }
 
-    public void borderDirectionHandler(Direction direction) {
-        // identify the current cell
-        Cell currentCell = this.currentCell;
+    private boolean isIn(int[] cellIDList, Cell cell) {
+        for (int ID : cellIDList) {
+            if (cell.getCellID() == ID) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Cell getCurrentCell() {return this.currentCell;}
@@ -63,4 +111,5 @@ public class Agent {
 
     public void setDisplayChar(char display) {this.displayChar = display;}
     public void setCurrentCell(Cell cell) {this.currentCell = cell;}
+    //public void setNW(int cellID) {this.NW = cellID;}
 }
